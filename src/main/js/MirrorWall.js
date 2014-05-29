@@ -6,6 +6,10 @@ var React = require('react');
 
 module.exports = React.createClass({
   render: function() {
-    return <div><h1>MirrorWall</h1></div>;
+    return <div className="container">
+      <div className="project-card" style={{"background-color": "#f77"}}>
+        Project wall
+      </div>
+    </div>;
   }
 });

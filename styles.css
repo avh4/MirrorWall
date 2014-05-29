@@ -2,3 +2,12 @@ html, body {
 	margin: 0;
 	background: #eee;
 }
+
+.project-card {
+  height: 6em;
+  width: 20%;
+  float: left;
+  font-size: 30px;
+  text-align: center;
+  padding: 50px 1px;
+}
