@@ -1,16 +1,18 @@
 {
+  "name": "MirrorWall",
+  "main": "./src/main/js/main.js",
   "scripts": {
-    "build": "mkdir -p target && ./node_modules/.bin/webpack src/main/js/main.js target/bundle.js && cp src/main/{css,html}/* target/",
-    "dev": "webpack-dev-server",
+    "dev": "http-server .",
     "test": "gulp test",
     "watch": "gulp"
   },
+  "dependencies": {
+    "rave": "^0.1.3",
+    "react": "~0.10.0"
+  },
   "devDependencies": {
     "jsx-loader": "~0.10.0",
-    "react": "~0.10.0",
-    "webpack": "~1.0.0",
     "jasmine-node": "^1.14.3",
-    "webpack-dev-server": "^1.2.8",
     "bower": "^1.3.3",
     "gulp": "^3.6.2",
     "gulp-filter": "^0.4.1",
