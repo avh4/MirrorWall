@@ -6,7 +6,7 @@ var MirrorWall = require('../../main/js/MirrorWall');
 
 describe('MirrorWall', function() {
   it('show projects', function() {
-    var $ = require('cheerio').load(ReactTest.renderString(<MirrorWall/>));
+    var $ = ReactTest.render(<MirrorWall/>);
     expect($('.project-card').text()).to.equal('Project wall');
   });
 });
