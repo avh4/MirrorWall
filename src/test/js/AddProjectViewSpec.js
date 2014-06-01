@@ -18,14 +18,20 @@ describe('AddProjectView', function() {
   });
 
   describe('tapping the add button', function() {
+    var subject;
     beforeEach(function() {
-      var subject = ReactTest.render(<AddProjectView/>);
-      $(subject).find('input').val('Amazing Race');
+      var component = <AddProjectView/>;
+      subject = ReactTest.render(component);
+      ReactTest.input(subject, 'input', 'Amazing Race');
       ReactTest.click(subject, 'button');
     });
 
     it('adds the project', function() {
       expect(ProjectService.add).to.have.been.calledWith('Amazing Race');
+    });
+
+    it('clears the name input', function() {
+      expect($(subject).find('input').val()).to.equal('');
     });
   });
 });

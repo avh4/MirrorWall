@@ -30,3 +30,8 @@ exports.render = function(component) {
 exports.click = function(subject, selector) {
   ReactTestUtils.Simulate.click($(subject).find(selector).get(0));
 }
+
+exports.input = function(subject, selector, value) {
+  var target = $(subject).find(selector).get(0);
+  ReactTestUtils.Simulate.change(target, { target: { value: value }});
+}
