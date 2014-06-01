@@ -5,18 +5,7 @@ var ReactTest = require('./ReactTest');
 var expect = require('chai').expect;
 var MirrorWall = rewire('../../main/js/MirrorWall');
 
-var React = require('react');
-
-function stubComponent(subject, componentNameToMock) {
-  var mock = React.createClass({
-    render: function() {
-      return <div id={componentNameToMock}>{JSON.stringify(this.props)}</div>;
-    }
-  });
-  MirrorWall.__set__(componentNameToMock, mock);
-}
-
-stubComponent(MirrorWall, 'ProjectsView');
+ReactTest.mock(MirrorWall, 'ProjectsView');
 
 function component(element) {
   return JSON.parse(element.text());
