@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 
+require('./env');
 var ReactTest = require('./ReactTest');
-var expect = require('chai').expect;
 var ProjectsView = require('../../main/js/ProjectsView');
 
 describe('ProjectsView', function() {

@@ -1,9 +1,8 @@
 /** @jsx React.DOM */
 
-var rewire = require('rewire');
+require('./env');
 var ReactTest = require('./ReactTest');
 var props = ReactTest.mock.props;
-var expect = require('chai').expect;
 var MirrorWall = rewire('../../main/js/MirrorWall');
 
 ReactTest.mock(MirrorWall, 'ProjectsView');
