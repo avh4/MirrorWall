@@ -1,6 +1,5 @@
 'use strict';
 
-require('./ReactDomTest');
 var React = require('react');
 var cheerio = require('cheerio');
 

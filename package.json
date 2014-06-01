@@ -18,6 +18,8 @@
     "gulp-mocha": "^0.4.1",
     "chai": "^1.9.1",
     "jsdom": "^0.10.5",
-    "cheerio": "^0.16.0"
+    "cheerio": "^0.16.0",
+    "jest-cli": "^0.1.15",
+    "react-tools": "^0.10.0"
   }
 }
