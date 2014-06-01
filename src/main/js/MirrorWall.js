@@ -3,15 +3,10 @@
 "use strict";
 
 var React = require('react');
+var ProjectsView = require('./ProjectsView');
 
 module.exports = React.createClass({
   render: function() {
-    if (!this.props.projects) {
-      return <div>No project data provided</div>;
-    }
-    var cards = this.props.projects.map(function(project, i) {
-      return <div className="col-xs-4 col-sm-3 col-lg-2"><div className="project-card" style={{"background-color": "#f77"}} key={i}>{project}</div></div>;
-    }, this);
-    return <div className="container"><div className="row">{cards}</div></div>;
+    return <ProjectsView projects={this.props.projects}/>;
   }
 });
