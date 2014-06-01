@@ -7,9 +7,9 @@ var ProjectService = require('./ProjectService');
 
 module.exports = React.createClass({
   doAdd: function() {
-    ProjectService.add();
+    ProjectService.add(this.refs.name.getDOMNode().value);
   },
   render: function() {
-    return <div className="row"><button onClick={this.doAdd}>Add</button></div>;
+    return <div className="row"><input ref="name"/><button onClick={this.doAdd}>Add</button></div>;
   }
 });

@@ -1,3 +1,3 @@
-exports.add = function() {
-  console.log("TODO: add");
+exports.add = function(name) {
+  console.log("TODO: add", name);
 }
