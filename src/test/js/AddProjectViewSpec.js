@@ -18,12 +18,10 @@ describe('AddProjectView', function() {
   });
 
   describe('tapping the add button', function() {
-    var subject;
     beforeEach(function() {
-      var component = <AddProjectView/>;
-      subject = ReactTest.render(component);
-      ReactTest.input(subject, 'input', 'Amazing Race');
-      ReactTest.click(subject, 'button');
+      ReactTest.render(<AddProjectView/>);
+      ReactTest.input('input', 'Amazing Race');
+      ReactTest.click('button');
     });
 
     it('adds the project', function() {
@@ -31,7 +29,7 @@ describe('AddProjectView', function() {
     });
 
     it('clears the name input', function() {
-      expect($(subject).find('input').val()).to.equal('');
+      expect($('input').val()).to.equal('');
     });
   });
 });
