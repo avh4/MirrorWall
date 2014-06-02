@@ -1,17 +1,17 @@
 /** @jsx React.DOM */
 
 require('./env');
-var ReactTest = require('./ReactTest');
+var ReactTest = require('./ReactDomTest');
 var ProjectsView = require('../../main/js/ProjectsView');
 
 describe('ProjectsView', function() {
   it('shows projects', function() {
-    var $ = ReactTest.render(<ProjectsView projects={['Project wall']}/>);
+    ReactTest.render(<ProjectsView projects={['Project wall']}/>);
     expect($('.project-card').text()).to.eql('Project wall');
   });
 
   it('shows all projects', function() {
-    var $ = ReactTest.render(<ProjectsView projects={['Project wall', 'Econ 101']}/>);
+    ReactTest.render(<ProjectsView projects={['Project wall', 'Econ 101']}/>);
     function getName(card) {
       return $(card).text();
     }
@@ -20,7 +20,7 @@ describe('ProjectsView', function() {
 
   describe('with no data', function() {
     it('shows a message', function() {
-      var $ = ReactTest.render(<ProjectsView/>);
+      ReactTest.render(<ProjectsView/>);
       expect($('div').text()).to.eql('No project data provided');
     });
   });
