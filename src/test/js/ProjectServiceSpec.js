@@ -19,9 +19,10 @@ describe('ProjectService', function() {
   });
 
   describe('getAll', function() {
-    it('returns all projects', function(done) {
+    it('returns all projects', function() {
       projectsDefer.resolve(['A', 'B']);
-      check(ProjectService.getAll(), done, ['A', 'B']);
+      return expect(ProjectService.getAll())
+        .to.eventually.eql(['A', 'B']);
     });
   });
 });

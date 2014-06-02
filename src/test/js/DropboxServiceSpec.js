@@ -11,16 +11,18 @@ describe('DropboxService', function() {
     });
 
     it('only opens the datastore once', function() {
-      DropboxService.insert('MyTable', { data: true}).then(function() {
+      return DropboxService.insert('MyTable', { data: true})
+      .then(function() {
         DropboxService.insert('MyTable', { data: true});
-      }).done();
+      });
     });
   });
 
   describe('query', function() {
-    it('retrieves records', function(done) {
+    it('retrieves records', function() {
       Dropbox['MyTable'] = [ {name: 'A'}, {name: 'B'} ];
-      check(DropboxService.query('MyTable'), done, [ {name: 'A'}, {name: 'B'} ]);
+      return expect(DropboxService.query('MyTable'))
+        .to.eventually.eql([ {name: 'A'}, {name: 'B'} ]);
     });
   });
 });
