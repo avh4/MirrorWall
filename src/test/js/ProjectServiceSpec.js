@@ -1,7 +1,11 @@
 require('./env');
 var ProjectService = rewire('../../main/js/ProjectService');
 
-var DropboxService = { insert: sinon.spy() };
+var projectsDefer = Q.defer();
+var DropboxService = {
+  insert: sinon.spy(),
+  query: sinon.stub().withArgs('projects').returns(projectsDefer.promise)
+};
 ProjectService.__set__('DropboxService', DropboxService);
 
 describe('ProjectService', function() {
@@ -11,6 +15,13 @@ describe('ProjectService', function() {
       expect(DropboxService.insert).to.have.been.calledWith(
         'projects', { name: 'Bake a cake' }
       );
+    });
+  });
+
+  describe('getAll', function() {
+    it('returns all projects', function(done) {
+      projectsDefer.resolve(['A', 'B']);
+      check(ProjectService.getAll(), done, ['A', 'B']);
     });
   });
 });

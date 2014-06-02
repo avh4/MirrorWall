@@ -1,16 +1,31 @@
 var DropboxClient = require('./DropboxClient');
+var Q = require('q');
 
 var datastore;
 
-exports.insert = function(table, record) {
+function getDatastore() {
+  var defer = Q.defer();
   if (!datastore) {
     DropboxClient.authenticate();
     datastoreManager = DropboxClient.getDatastoreManager();
     datastoreManager.openDefaultDatastore(function(error, ds) {
       datastore = ds;
-      datastore.getTable(table).insert(record);
+      defer.resolve(datastore);
     });
   } else {
-    datastore.getTable(table).insert(record);
+    defer.resolve(datastore);
   }
+  return defer.promise;
+}
+
+exports.insert = function(table, record) {
+  return getDatastore().then(function(datastore) {
+    datastore.getTable(table).insert(record);
+  });
+};
+
+exports.query = function(tableName) {
+  return getDatastore().then(function(datastore) {
+    return datastore.getTable(tableName).query();
+  });
 };
