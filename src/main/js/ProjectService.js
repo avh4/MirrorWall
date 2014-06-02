@@ -1,3 +1,5 @@
+var DropboxService = require('./DropboxService');
+
 exports.add = function(name) {
-  console.log("TODO: add", name);
+  DropboxService.insert('projects', { name: name });
 }
