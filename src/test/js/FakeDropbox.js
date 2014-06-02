@@ -40,7 +40,11 @@ DatastoreManager.prototype.toString = function() {
 }
 
 DatastoreManager.prototype.openDefaultDatastore = function(callback) {
-  callback(null, new Datastore(this.dropbox));
+  if (this.datastore) {
+    throw new Error('Attempt to open datastore multiple times');
+  }
+  this.datastore = new Datastore(this.dropbox);
+  callback(null, this.datastore);
 }
 
 ///
@@ -57,7 +61,10 @@ Client.prototype.toString = function() {
 }
 
 Client.prototype.getDatastoreManager = function() {
-  return new DatastoreManager(this.dropbox);
+  if (!this.datastoreManager) {
+    this.datastoreManager = new DatastoreManager(this.dropbox);
+  }
+  return this.datastoreManager;
 }
 
 Client.prototype.isAuthenticated = function() {

@@ -8,5 +8,10 @@ describe('DropboxClient', function() {
       DropboxService.insert('MyTable', { data: true});
       expect(Dropbox['MyTable']).to.eql([{data: true}]);
     });
+
+    it('only opens the datastore once', function() {
+      DropboxService.insert('MyTable', { data: true});
+      DropboxService.insert('MyTable', { data: true});
+    });
   });
 });
