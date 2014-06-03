@@ -18,11 +18,13 @@ describe('ProjectService', function() {
     });
   });
 
-  describe('getAll', function() {
-    it('returns all projects', function() {
+  describe('subscribe', function() {
+    it('returns all projects', function(done) {
       projectsDefer.resolve(['A', 'B']);
-      return expect(ProjectService.getAll())
-        .to.eventually.eql(['A', 'B']);
+      ProjectService.subscribe(function(projects) {
+        expect(projects).to.eql(['A', 'B']);
+        done();
+      });
     });
   });
 });

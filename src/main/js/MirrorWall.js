@@ -12,7 +12,7 @@ module.exports = React.createClass({
     return {projects: undefined};
   },
   componentWillMount: function() {
-    ProjectService.getAll().then(function(projects) {
+    ProjectService.subscribe(function(projects) {
       this.setState({projects: projects});
     }.bind(this));
   },

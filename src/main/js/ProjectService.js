@@ -4,6 +4,6 @@ exports.add = function(name) {
   DropboxService.insert('projects', { name: name });
 }
 
-exports.getAll = function() {
-  return DropboxService.query('projects');
+exports.subscribe = function(callback) {
+  DropboxService.query('projects').then(callback).done();
 }

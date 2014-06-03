@@ -7,15 +7,15 @@ var MirrorWall = rewire('../../main/js/MirrorWall');
 
 ReactTest.mock(MirrorWall, 'ProjectsView');
 ReactTest.mock(MirrorWall, 'AddProjectView');
-var projectsDefer = Q.defer();
+var projects;
 var ProjectService = {
-  getAll: sinon.stub().returns(projectsDefer.promise)
+  subscribe: function(callback) { callback(projects) }
 };
 MirrorWall.__set__('ProjectService', ProjectService);
 
 describe('MirrorWall', function() {
   it('shows projects', function(done) {
-    projectsDefer.resolve(['Project wall']);
+    projects = ['Project wall'];
     ReactTest.render(<MirrorWall/>);
     setTimeout(function() {
       expect(props($('#ProjectsView')).projects).to.eql(['Project wall']);
