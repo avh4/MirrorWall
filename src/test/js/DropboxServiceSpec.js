@@ -25,4 +25,19 @@ describe('DropboxService', function() {
         .to.eventually.eql([ {name: 'A'}, {name: 'B'} ]);
     });
   });
+
+  describe('subscribe', function() {
+    it('calls the subscriber when records change', function() {
+      var callback = sinon.spy();
+      DropboxService.subscribe('MyTable', callback);
+      Dropbox.triggerRecordsChanged();
+      expect(callback).to.have.been.calledTwice;
+    });
+
+    it('calls the subscriber immediately', function() {
+      var callback = sinon.spy();
+      DropboxService.subscribe('MyTable', callback);
+      expect(callback).to.have.been.called;
+    });
+  });
 });

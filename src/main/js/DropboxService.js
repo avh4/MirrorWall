@@ -2,6 +2,7 @@ var DropboxClient = require('./DropboxClient');
 var Q = require('q');
 
 var datastore;
+var subscriber;
 
 function getDatastore() {
   var defer = Q.defer();
@@ -10,6 +11,9 @@ function getDatastore() {
     datastoreManager = DropboxClient.getDatastoreManager();
     datastoreManager.openDefaultDatastore(function(error, ds) {
       datastore = ds;
+      datastore.recordsChanged.addListener(function(event) {
+        subscriber();
+      });
       defer.resolve(datastore);
     });
   } else {
@@ -28,4 +32,9 @@ exports.query = function(tableName) {
   return getDatastore().then(function(datastore) {
     return datastore.getTable(tableName).query();
   });
+};
+
+exports.subscribe = function(tableName, callback) {
+  callback();
+  subscriber = callback;
 };
