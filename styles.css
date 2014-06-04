@@ -4,8 +4,26 @@ html, body {
 }
 
 .project-card {
-  height: 6em;
-  font-size: 30px;
-  text-align: center;
+  height: 180px;
   padding: 50px 1px;
+  text-align: center;
+  position: relative;
+}
+
+.project-card .name {
+  font-size: 30px;
+}
+
+.project-card .delete {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: transparent;
+  border: none;
+  color: #700;
+}
+
+.project-card .delete:hover {
+  color: #333;
+  background-color: #700;
 }

@@ -12,7 +12,7 @@ module.exports = React.createClass({
     var name = this.props.project.get('name');
     return <div className="project-card" style={{"background-color": "#f77"}}>
       <span className="name">{name}</span>
-      <button className="delete" onClick={this.doDelete}>X</button>
+      <button className="delete" onClick={this.doDelete}><i className="fa fa-times"></i></button>
     </div>;
   }
 });
