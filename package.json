@@ -1,4 +1,6 @@
 {
+  "name": "MirrorWall",
+  "version": "0.0.1",
   "scripts": {
     "build": "mkdir -p target && ./node_modules/.bin/webpack src/main/js/main.js target/bundle.js && cp src/main/{css,html}/* target/",
     "dev": "webpack-dev-server",
