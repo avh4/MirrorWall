@@ -41,14 +41,17 @@ exports.mock = function(subject, componentNameToMock) {
   if (typeof subject.__set__ != 'function') {
     throw new Error('ReactTest.mock subjects must use rewire');
   }
+  var nextId = 1;
   var mock = React.createClass({
     render: function() {
-      return React.DOM.div({id: componentNameToMock}, JSON.stringify(this.props));
+      return React.DOM.div({id: componentNameToMock + nextId}, JSON.stringify(this.props));
     }
   });
   subject.__set__(componentNameToMock, mock);
 }
 
-exports.mock.props = function(element) {
+exports.mock.props = function(selector) {
+  var element = $(selector);
+  if (!element.length) throw new Error('No matching element found');
   return JSON.parse(element.text());
 }

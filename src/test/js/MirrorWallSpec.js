@@ -18,13 +18,13 @@ describe('MirrorWall', function() {
     projects = ['Project wall'];
     ReactTest.render(<MirrorWall/>);
     setTimeout(function() {
-      expect(props($('#ProjectsView')).projects).to.eql(['Project wall']);
+      expect(props('#ProjectsView1').projects).to.eql(['Project wall']);
       done();
     });
   });
 
   it('shows the add project widget', function() {
     ReactTest.render(<MirrorWall/>);
-    expect($('#AddProjectView').length).to.eql(1);
+    expect($('#AddProjectView1').length).to.eql(1);
   });
 });
