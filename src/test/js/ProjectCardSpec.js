@@ -18,6 +18,16 @@ describe('ProjectCard', function() {
 
   it('shows the project name', function() {
     ReactTest.render(<ProjectCard project={p('Project wall')}/>);
-    expect($('div').text()).to.eql('Project wall');
+    expect($('.name').text()).to.eql('Project wall');
+  });
+
+  describe('tapping delete', function() {
+    it('deletes the project', function() {
+      var project = p('DELETE ME!');
+      project.deleteRecord = sinon.spy();
+      ReactTest.render(<ProjectCard project={project}/>);
+      ReactTest.click('button.delete');
+      expect(project.deleteRecord).to.have.been.called;
+    });
   });
 });
