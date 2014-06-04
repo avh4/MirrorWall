@@ -21,7 +21,7 @@
     "rewire": "^2.0.1",
     "sinon": "^1.10.1",
     "sinon-chai": "^2.5.0",
-    "dropbox-mock": "0.0.2-SNAPSHOT",
+    "dropbox-mock": "0.0.2",
     "chai-as-promised": "^4.1.1"
   },
   "dependencies": {
