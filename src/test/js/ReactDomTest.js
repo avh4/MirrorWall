@@ -37,14 +37,15 @@ exports.input = function(selector, value) {
   ReactTestUtils.Simulate.change(target, { target: { value: value }});
 }
 
-exports.mock = function(subject, componentNameToMock) {
+exports.mock = function(subject, componentNameToMock, _propsToJson) {
+  var propsToJson = _propsToJson || function() { return this };
   if (typeof subject.__set__ != 'function') {
     throw new Error('ReactTest.mock subjects must use rewire');
   }
   var nextId = 1;
   var mock = React.createClass({
     render: function() {
-      return React.DOM.div({id: componentNameToMock + nextId}, JSON.stringify(this.props));
+      return React.DOM.div({id: componentNameToMock + nextId, className: componentNameToMock}, JSON.stringify(propsToJson.bind(this.props)()));
     }
   });
   subject.__set__(componentNameToMock, mock);
