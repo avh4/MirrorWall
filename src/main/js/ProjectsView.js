@@ -1,20 +1,23 @@
-/** @jsx React.DOM */
-
 "use strict";
 
-var React = require('react');
+var mercury = require('mercury');
+var h = mercury.h;
 var ProjectCard = require('./ProjectCard');
 
-module.exports = React.createClass({
-  render: function() {
-    if (!this.props.projects) {
-      return <div>No project data provided</div>;
-    }
-    var cards = this.props.projects.map(function(project, i) {
-      return <div className="col-xs-4 col-sm-3 col-lg-2" key={i}>
-        <ProjectCard project={project}/>
-      </div>;
-    }, this);
-    return <div className="row">{cards}</div>;
+function ProjectsView() {
+  throw "not used";
+}
+
+ProjectsView.render = function(projects, onDelete) {
+  if (!projects) {
+    return h('div', 'No project data provided');
+  } else {
+    var cards = projects.map(function(project, i) {
+      return h('div.col-xs-4.col-sm-3.col-lg-2',
+      ProjectCard.render(project, onDelete));
+    });
+    return h('div.row', cards);
   }
-});
+};
+
+module.exports = ProjectsView;

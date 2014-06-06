@@ -1,22 +1,36 @@
-/** @jsx React.DOM */
-
 "use strict";
 
-var React = require('react');
 var ProjectService = require('./ProjectService');
 
-module.exports = React.createClass({
-  getInitialState: function() {
-    return { name: '' };
-  },
-  doNameChange: function(e) {
-    this.setState({name: e.target.value});
-  },
-  doAdd: function() {
-    ProjectService.add(this.state.name);
-    this.setState({name: ''});
-  },
-  render: function() {
-    return <div className="row"><input value={this.state.name} onChange={this.doNameChange}/><button onClick={this.doAdd}>Add</button></div>;
-  }
-});
+var mercury = require('mercury');
+var h = mercury.h;
+
+function AddProjectView() {
+  var events = mercury.input(['change', 'add']);
+  var state = mercury.struct({
+    input: mercury.value(''),
+    events: events
+  });
+
+  events.change(function(data) {
+    state.input.set(data.name);
+  });
+
+  events.add(function() {
+    ProjectService.add(state.input());
+    state.input.set('');
+  });
+
+  return { state: state };
+}
+
+AddProjectView.render = function(state) {
+  return h('div', {class: 'row'}, [
+    h('input', {value: state.input, name: 'name',
+      'ev-event': mercury.changeEvent(state.events.change)
+    }),
+    h('button', {'ev-click': mercury.event(state.events.add)}, 'Add')
+  ]);
+};
+
+module.exports = AddProjectView;

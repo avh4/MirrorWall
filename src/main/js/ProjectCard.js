@@ -1,18 +1,21 @@
-/** @jsx React.DOM */
-
 "use strict";
 
-var React = require('react');
+var mercury = require('mercury');
+var h = mercury.h;
 
-module.exports = React.createClass({
-  doDelete: function() {
-    this.props.project.deleteRecord();
-  },
-  render: function() {
-    var name = this.props.project.get('name');
-    return <div className="project-card" style={{"background-color": "#f77"}}>
-      <span className="name">{name}</span>
-      <button className="delete" onClick={this.doDelete}><i className="fa fa-times"></i></button>
-    </div>;
-  }
-});
+function ProjectCard(project) {
+  throw "not used";
+}
+
+ProjectCard.render = function(project, onDelete) {
+  var name = project.get('name');
+  return h('div.project-card', [
+    h('span.name', name),
+    h('button.delete', {
+      'ev-click': mercury.event(onDelete, project)
+    },
+      h('i.fa.fa-times'))
+  ]);
+};
+
+module.exports = ProjectCard;
