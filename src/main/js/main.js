@@ -1,8 +1,12 @@
-/** @jsx React.DOM */
-
 "use strict";
 
-var React = require('react');
+var mercury = require('mercury');
 var MirrorWall = require('./MirrorWall');
 
-React.renderComponent(<MirrorWall/>, document.getElementById('root'));
+var h = mercury.h
+
+var state = mercury.struct({
+  MirrorWall: MirrorWall().state
+});
+
+mercury.app(document.getElementById('root'), state.MirrorWall, MirrorWall.render)

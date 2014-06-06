@@ -8,6 +8,7 @@ html, body {
   padding: 50px 1px;
   text-align: center;
   position: relative;
+  background-color: #f77;
 }
 
 .project-card .name {
