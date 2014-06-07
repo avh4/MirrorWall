@@ -3,28 +3,27 @@
 var jsdom = require('jsdom').jsdom;
 
 exports.reset = function(done) {
-  var doc = jsdom('<html><body></body></html>');
-  global.window = doc.parentWindow;
-  global.document = window.document;
-  global.navigator = window.navigator;
-  global.$ = undefined;
-  if (done) {
-    jsdom.jQueryify(doc.parentWindow, "../../../bower_components/jquery/dist/jquery.js", function () {
+  // var doc = jsdom('<html><body></body></html>');
+  // global.window = doc.parentWindow;
+  // global.document = window.document;
+  // global.navigator = window.navigator;
+  // global.$ = undefined;
+  // if (done) {
+  //   jsdom.jQueryify(doc.parentWindow, "../../../bower_components/jquery/dist/jquery.js", function () {
       done();
-    });
-  }
+  //   });
+  // }
 }
 
-exports.reset();
-var React = require('react/addons');
-var ReactTestUtils = React.addons.TestUtils;
+// exports.reset();
+var mercury = require('mercury');
 
 exports.render = function(component) {
-  var div = document.createElement('div');
-  React.renderComponent(component, div);
+  mercury.app(div, new component().state, component.render);
   global.$ = function(selector) {
     return window.$(div).find(selector);
   }
+  console.log('doc', document.body.toString());
   return div;
 }
 
@@ -34,7 +33,9 @@ exports.click = function(selector) {
 
 exports.input = function(selector, value) {
   var target = $(selector).get(0);
-  ReactTestUtils.Simulate.change(target, { target: { value: value }});
+  target.val(value);
+  target.trigger('change');
+  // ReactTestUtils.Simulate.change(target, { target: { value: value }});
 }
 
 exports.mock = function(subject, componentNameToMock, _propsToJson) {
