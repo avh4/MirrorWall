@@ -23,7 +23,10 @@
     "sinon": "^1.10.1",
     "sinon-chai": "^2.5.0",
     "dropbox-mock": "0.0.2",
-    "chai-as-promised": "^4.1.1"
+    "chai-as-promised": "^4.1.1",
+    "synthetic-dom-events": "git://github.com/Raynos/synthetic-dom-events",
+    "min-document": "^2.7.0",
+    "mercury": "git://github.com/Raynos/mercury"
   },
   "dependencies": {
     "q": "^1.0.1",

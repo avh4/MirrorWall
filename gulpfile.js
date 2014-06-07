@@ -1,26 +1,15 @@
 var gulp = require('gulp');
 var gulpFilter = require('gulp-filter');
 
-var react = require('gulp-react');
 var mocha = require('gulp-mocha');
 
 var paths = {
-  src: './src',
-  target: './target'
+  src: './src/main/js',
+  test: './src/test/js'
 };
 
 gulp.task('test', function() {
-  var testFilter = gulpFilter('test/js/**/*.js');
-
-  gulp.src([paths.src + '/**/*.js'])
-    // transform jsx to js
-    .pipe(react())
-
-    // copy into target
-    .pipe(gulp.dest(paths.target))
-
-    // run tests
-    .pipe(testFilter)
+  gulp.src([paths.test + '/**/*.js'])
     .pipe(mocha())
     .on('error', console.warn.bind(console));
 });

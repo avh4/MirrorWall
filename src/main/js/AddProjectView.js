@@ -17,6 +17,7 @@ function AddProjectView() {
   });
 
   events.add(function() {
+    console.log("======================= EVENT!");
     ProjectService.add(state.input());
     state.input.set('');
   });
@@ -26,10 +27,10 @@ function AddProjectView() {
 
 AddProjectView.render = function(state) {
   return h('div', {class: 'row'}, [
-    h('input', {value: state.input, name: 'name',
+    h('input', {value: state.input, name: 'name', className: 'add-field',
       'ev-event': mercury.changeEvent(state.events.change)
     }),
-    h('button', {'ev-click': mercury.event(state.events.add)}, 'Add')
+    h('button', {'className': 'add-button', 'ev-click': mercury.event(state.events.add)}, 'Add')
   ]);
 };
 
