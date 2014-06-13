@@ -1,40 +1,15 @@
 require('./env');
 
+var subject = require('./TestSubject');
+var MercuryTest = require('./MercuryTest');
+
 var ProjectService = {
   add: sinon.spy()
 };
 
-function subject(moduleName, fakes) {
-  var filename = require.resolve(moduleName);
-  var fs = require('fs');
-
-  filedata = fs.readFileSync(filename,'utf8');
-  var module = { exports: {}};
-  var nodeRequire = require;
-  (function(module, exports) {
-    var context = {
-      console: console,
-      require: function(moduleName) {
-        if (moduleName.indexOf('ProjectService') != -1) {
-          return ProjectService
-        }
-        var actualName = moduleName;
-        if (moduleName.indexOf('./') == 0 || moduleName.indexOf('../') == 0) {
-          actualName = '../../main/js/' + moduleName;
-        }
-        return nodeRequire(actualName);
-      },
-      module: module,
-      exports: module.exports
-    };
-    var vm = require('vm');
-    vm.runInNewContext(filedata, context, filename);
-  })(module, module.exports);
-  return module.exports;
-}
-
-var MercuryTest = require('./MercuryTest');
-var AddProjectView = subject('../../main/js/AddProjectView', {ProjectService: ProjectService});
+var AddProjectView = subject('../../main/js/AddProjectView', {
+  ProjectService: ProjectService
+});
 
 describe('AddProjectView', function() {
   describe('tapping the add button', function() {
