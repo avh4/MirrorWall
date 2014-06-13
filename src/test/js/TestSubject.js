@@ -11,8 +11,9 @@ module.exports = function(moduleName, fakes) {
     var context = {
       console: console,
       require: function(moduleName) {
-        if (moduleName.indexOf('ProjectService') != -1) {
-          return fakes.ProjectService;
+        var basename = moduleName.substring(moduleName.lastIndexOf('/') + 1);
+        if (fakes[basename]) {
+          return fakes[basename];
         }
         var actualName = moduleName;
         if (moduleName.indexOf('./') == 0 || moduleName.indexOf('../') == 0) {
