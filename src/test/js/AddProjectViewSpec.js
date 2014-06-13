@@ -36,29 +36,15 @@ function subject(moduleName, fakes) {
 var MercuryTest = require('./MercuryTest');
 var AddProjectView = subject('../../main/js/AddProjectView', {ProjectService: ProjectService});
 
-var mercury = require('mercury');
-var event = require('synthetic-dom-events');
-var Document = require('min-document/document');
-
 describe('AddProjectView', function() {
   describe('tapping the add button', function() {
     var $;
     
     beforeEach(function(done) {
-      var document = new Document();
-      var component = AddProjectView;
-      var div = document.createElement('div');
-      document.body.appendChild(div);
-      mercury.app(div, new component().state, component.render, {document: document});
-      $ = function(selector) {
-        return require('cheerio').load(div.toString())(selector);
-      };
+      $ = new MercuryTest(AddProjectView);
       
-      //   MercuryTest.input('input', 'Amazing Race');
-      document.getElementsByClassName('add-field')[0].value = 'Amazing Race';
-      document.getElementsByClassName('add-field')[0].dispatchEvent(event('input'));
-      //   MercuryTest.click('button');
-      document.getElementsByClassName('add-button')[0].dispatchEvent(event('click'));
+      $('.add-field').input('Amazing Race');
+      $('.add-button').click();
       setTimeout(done);
     });
     
