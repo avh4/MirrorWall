@@ -9,3 +9,6 @@ global.expect = chai.expect;
 
 global.Dropbox = new (require('dropbox-mock'))();
 global.Dropbox.allowAppKey('hzy00wu1zd7neiv');
+
+global.subject = require('./TestSubject');
+global.MercuryTest = require('./MercuryTest');

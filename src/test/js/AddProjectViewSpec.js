@@ -1,8 +1,5 @@
 require('./env');
 
-var subject = require('./TestSubject');
-var MercuryTest = require('./MercuryTest');
-
 var ProjectService = {
   add: sinon.spy()
 };
