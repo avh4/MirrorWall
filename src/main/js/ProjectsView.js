@@ -4,9 +4,7 @@ var mercury = require('mercury');
 var h = mercury.h;
 var ProjectCard = require('./ProjectCard');
 
-function ProjectsView() {
-  throw "not used";
-}
+var ProjectsView = {};
 
 ProjectsView.render = function(projects) {
   if (!projects) {

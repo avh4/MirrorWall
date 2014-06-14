@@ -3,9 +3,7 @@
 var mercury = require('mercury');
 var h = mercury.h;
 
-function ProjectCard(project) {
-  throw "not used";
-}
+var ProjectCard = {};
 
 ProjectCard.render = function(project) {
   var name = project.get('name');

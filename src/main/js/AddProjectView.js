@@ -5,7 +5,9 @@ var ProjectService = require('./ProjectService');
 var mercury = require('mercury');
 var h = mercury.h;
 
-function AddProjectView() {
+var AddProjectView = {};
+
+AddProjectView.state = function() {
   var events = mercury.input(['change', 'add']);
   var state = mercury.struct({
     input: mercury.value(''),
@@ -21,8 +23,8 @@ function AddProjectView() {
     state.input.set('');
   });
 
-  return { state: state };
-}
+  return state;
+};
 
 AddProjectView.render = function(state) {
   return h('div', {class: 'row'}, [
