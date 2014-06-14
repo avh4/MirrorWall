@@ -27,11 +27,11 @@ AddProjectView.state = function() {
 };
 
 AddProjectView.render = function(state) {
-  return h('div', {class: 'row'}, [
-    h('input', {value: state.input, name: 'name', className: 'add-field',
+  return h('div.row', [
+    h('input.add-field', {value: state.input, name: 'name',
       'ev-event': mercury.changeEvent(state.onChange)
     }),
-    h('button', {'className': 'add-button', 'ev-click': mercury.event(state.onAdd)}, 'Add')
+    h('button.add-button', {'ev-click': mercury.event(state.onAdd)}, 'Add')
   ]);
 };
 
