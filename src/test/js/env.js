@@ -3,6 +3,7 @@ global.sinon = require('sinon');
 global.Q = require('q');
 global.cheerio = require('cheerio');
 global.mercury = require('mercury');
+global.h = mercury.h;
 
 global.chai = require('chai');
 global.chai.use(require('sinon-chai'));
