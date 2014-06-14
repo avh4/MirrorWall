@@ -13,7 +13,7 @@ describe('AddProjectView', function() {
     var $;
     
     beforeEach(function(done) {
-      $ = new MercuryTest(AddProjectView.render, AddProjectView.state());
+      $ = new MercuryTest(AddProjectView);
       
       $('.add-field').input('Amazing Race');
       $('.add-button').click();

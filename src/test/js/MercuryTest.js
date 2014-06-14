@@ -9,7 +9,7 @@ function MercuryTest(/*...*/) {
   var state, render;
   if (arguments.length == 1) {
     var component = arguments[0];
-    var state = new component().state;
+    var state = component.state();
     var render = component.render;
   } else {
     var render = arguments[0];

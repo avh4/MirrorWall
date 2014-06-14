@@ -6,7 +6,9 @@ var ProjectService = require('./ProjectService');
 var mercury = require('mercury');
 var h = mercury.h;
 
-function MirrorWall() {
+var MirrorWall = {};
+
+MirrorWall.state = function() {
   var state = mercury.struct({
     AddProjectView: AddProjectView().state,
     projects: mercury.value([])
@@ -16,7 +18,7 @@ function MirrorWall() {
     state.projects.set(projects);
   });
 
-  return { state: state };
+  return state;
 }
 
 MirrorWall.render = function(state) {
