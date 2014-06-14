@@ -8,17 +8,17 @@ var h = mercury.h;
 var AddProjectView = {};
 
 AddProjectView.state = function() {
-  var events = mercury.input(['change', 'add']);
   var state = mercury.struct({
     input: mercury.value(''),
-    events: events
+    onChange: mercury.value(mercury.input()),
+    onAdd: mercury.value(mercury.input())
   });
 
-  events.change(function(data) {
+  state.onChange()(function(data) {
     state.input.set(data.name);
   });
 
-  events.add(function() {
+  state.onAdd()(function() {
     ProjectService.add(state.input());
     state.input.set('');
   });
@@ -29,9 +29,9 @@ AddProjectView.state = function() {
 AddProjectView.render = function(state) {
   return h('div', {class: 'row'}, [
     h('input', {value: state.input, name: 'name', className: 'add-field',
-      'ev-event': mercury.changeEvent(state.events.change)
+      'ev-event': mercury.changeEvent(state.onChange)
     }),
-    h('button', {'className': 'add-button', 'ev-click': mercury.event(state.events.add)}, 'Add')
+    h('button', {'className': 'add-button', 'ev-click': mercury.event(state.onAdd)}, 'Add')
   ]);
 };
 
