@@ -8,13 +8,13 @@ function ProjectsView() {
   throw "not used";
 }
 
-ProjectsView.render = function(projects, onDelete) {
+ProjectsView.render = function(projects) {
   if (!projects) {
     return h('div', 'No project data provided');
   } else {
     var cards = projects.map(function(project, i) {
       return h('div.col-xs-4.col-sm-3.col-lg-2',
-      ProjectCard.render(project, onDelete));
+      ProjectCard.render(project));
     });
     return h('div.row', cards);
   }

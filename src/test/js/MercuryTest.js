@@ -5,11 +5,20 @@ var event = require('synthetic-dom-events');
 var Document = require('min-document/document');
 var cheerio = require('cheerio');
 
-function MercuryTest(component) {
+function MercuryTest(/*...*/) {
+  var state, render;
+  if (arguments.length == 1) {
+    var component = arguments[0];
+    var state = new component().state;
+    var render = component.render;
+  } else {
+    var render = arguments[0];
+    var state = arguments[1];
+  }
   var document = new Document();
   var div = document.createElement('div');
   document.body.appendChild(div);
-  mercury.app(div, new component().state, component.render, {document: document});
+  mercury.app(div, state, render, {document: document});
   var $ = function(selector) {
     var result = cheerio.load(div.toString())(selector);
     var className = undefined;

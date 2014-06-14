@@ -1,6 +1,8 @@
 global.rewire = require('rewire');
 global.sinon = require('sinon');
 global.Q = require('q');
+global.cheerio = require('cheerio');
+global.mercury = require('mercury');
 
 global.chai = require('chai');
 global.chai.use(require('sinon-chai'));

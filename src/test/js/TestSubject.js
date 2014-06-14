@@ -12,7 +12,7 @@ module.exports = function(moduleName, fakes) {
       console: console,
       require: function(moduleName) {
         var basename = moduleName.substring(moduleName.lastIndexOf('/') + 1);
-        if (fakes[basename]) {
+        if (fakes && fakes[basename]) {
           return fakes[basename];
         }
         var actualName = moduleName;
