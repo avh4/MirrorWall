@@ -12,7 +12,7 @@
     "chai": "^1.9.1",
     "chai-as-promised": "^4.1.1",
     "cheerio": "^0.17.0",
-    "dropbox-mock": "0.0.2",
+    "dropbox-mock": "0.0.4",
     "gulp": "^3.6.2",
     "gulp-filter": "^0.4.1",
     "gulp-mocha": "^0.4.1",

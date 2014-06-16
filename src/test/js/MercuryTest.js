@@ -24,20 +24,28 @@ function $(document, elem, selector) {
 };
 
 function MercuryTest(/*...*/) {
-  var state, render;
+  var render, renderArgs;
   if (arguments.length == 1) {
     var component = arguments[0];
-    var state = component.state();
     var render = component.render;
+    var renderArgs = [component.state()];
   } else {
     var render = arguments[0];
-    var state = arguments[1];
+    var renderArgs = Array.prototype.slice.call(arguments).slice(1);
   }
   var document = new Document();
-  var div = document.createElement('div');
-  document.body.appendChild(div);
-  mercury.app(div, state, render, {document: document});
-  return $.bind(null, document, div);
+  var elem = document.createElement('div');
+  document.body.appendChild(elem);
+  if (renderArgs.length == 1) {
+    mercury.app(elem, renderArgs[0], render, {document: document});
+  } else {
+    var opts = {document: document};
+    mercury.Delegator(opts);
+    var loop = mercury.main(renderArgs, function(args) { return render.apply(null, args) }, opts);
+    elem.appendChild(loop.target);
+    // observ(loop.update)
+  }
+  return $.bind(null, document, elem);
 }
 
 module.exports = MercuryTest;

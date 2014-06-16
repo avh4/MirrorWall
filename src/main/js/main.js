@@ -6,7 +6,7 @@ var MirrorWall = require('./MirrorWall');
 var h = mercury.h
 
 var state = mercury.struct({
-  MirrorWall: MirrorWall().state
+  MirrorWall: MirrorWall.state()
 });
 
 mercury.app(document.getElementById('root'), state.MirrorWall, MirrorWall.render)

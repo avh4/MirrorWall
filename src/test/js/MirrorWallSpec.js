@@ -5,10 +5,10 @@ var ProjectService = {
   subscribe: function(callback) { callback(projects) }
 };
 
-var AddProjectView = function() {
-  return { state: {}};
+var AddProjectView = {
+  state: function() { return {} },
+  render: function() { return h('div#AddProjectView1') }
 };
-AddProjectView.render = function() { return h('div#AddProjectView1') };
 
 var MirrorWall = subject('../../main/js/MirrorWall', {
   ProjectsView: { render: function(state) { return h('div#ProjectsView1', state)}},

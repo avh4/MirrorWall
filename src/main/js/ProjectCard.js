@@ -5,12 +5,12 @@ var h = mercury.h;
 
 var ProjectCard = {};
 
-ProjectCard.render = function(project) {
+ProjectCard.render = function(project, deleteProject) {
   var name = project.get('name');
   return h('div.project-card', [
     h('span.name', name),
     h('button.delete', {
-      'ev-click': mercury.event(project.deleteRecord.bind(project))
+      'ev-click': mercury.event(deleteProject, project)
     },
       h('i.fa.fa-times'))
   ]);

@@ -19,10 +19,12 @@ describe('DropboxService', function() {
   });
 
   describe('query', function() {
-    it('retrieves records', function() {
+    it('retrieves records', function(done) {
       Dropbox['MyTable'] = [ {name: 'A'}, {name: 'B'} ];
-      return expect(DropboxService.query('MyTable'))
-        .to.eventually.eql([ {name: 'A'}, {name: 'B'} ]);
+      DropboxService.query('MyTable').then(function(records) {
+        expect(records.map(function(r) { return r.get('name') })).to.eql(['A', 'B']);
+        done();
+      });
     });
   });
 

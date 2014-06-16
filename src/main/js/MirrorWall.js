@@ -10,12 +10,17 @@ var MirrorWall = {};
 
 MirrorWall.state = function() {
   var state = mercury.struct({
-    AddProjectView: AddProjectView().state,
-    projects: mercury.value([])
+    AddProjectView: AddProjectView.state(),
+    projects: mercury.value([]),
+    onDeleteProject: mercury.value(mercury.input())
   });
 
   ProjectService.subscribe(function(projects) {
     state.projects.set(projects);
+  });
+
+  state.onDeleteProject()(function(project) {
+    project.deleteRecord();
   });
 
   return state;
@@ -24,7 +29,7 @@ MirrorWall.state = function() {
 MirrorWall.render = function(state) {
   return h('div', [
     AddProjectView.render(state.AddProjectView),
-    ProjectsView.render(state.projects)
+    ProjectsView.render(state.projects, state.onDeleteProject)
   ]);
 };
 
