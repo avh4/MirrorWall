@@ -13,12 +13,17 @@ function $(document, elem, selector) {
   }
   result.input = function(text) {
     if (!className) throw new Error('only currently implemented for class selectors');
-    document.getElementsByClassName(className)[0].value = text;
-    document.getElementsByClassName(className)[0].dispatchEvent(event('input'));
+    var elements = document.getElementsByClassName(className);
+    if (!elements) throw new Error('input: Element not found: ' + selector + " in " + elem.toString());
+    if (elements[0].tagName !== 'INPUT') throw new Error('input: Element is not an input: ' + elements[0].toString());
+    elements[0].value = text;
+    elements[0].dispatchEvent(event('input'));
   };
   result.click = function() {
     if (!className) throw new Error('only currently implemented for class selectors');
-    document.getElementsByClassName(className)[0].dispatchEvent(event('click'));
+    var elements = document.getElementsByClassName(className);
+    if (!elements) throw new Error('click: Element not found: ' + selector + " in " + elem.toString());
+    elements[0].dispatchEvent(event('click'));
   };
   return result;
 };
