@@ -46,9 +46,11 @@ function MercuryTest(/*...*/) {
   } else {
     var opts = {document: document};
     mercury.Delegator(opts);
-    var loop = mercury.main(renderArgs, function(args) { return render.apply(null, args) }, opts);
+    var observ = mercury.array(renderArgs.map(mercury.value));
+    var unpackRender = function(args) { return render.apply(null, args()) };
+    var loop = mercury.main(observ, unpackRender, opts);
     elem.appendChild(loop.target);
-    // observ(loop.update)
+    // observ(loop.update);
   }
   return $.bind(null, document, elem);
 }

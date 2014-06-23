@@ -9,13 +9,14 @@ function p(name) {
 
 describe('ProjectCard', function() {
   var $;
-  var onDelete;
+  var onDelete, onEdit;
   var project;
 
   beforeEach(function() {
     onDelete = sinon.spy();
+    onEdit = sinon.spy();
     project = p('Project wall');
-    $ = new MercuryTest(ProjectCard.render, project, onDelete);
+    $ = new MercuryTest(ProjectCard.render, project, onDelete, onEdit);
   });
 
   it('shows the project name', function() {
@@ -26,6 +27,13 @@ describe('ProjectCard', function() {
     it('deletes the project', function() {
       $('.delete').click();
       expect(onDelete).to.have.been.calledWith(project);
+    });
+  });
+
+  describe('tapping the card', function() {
+    it('switches to edit mode', function() {
+      $('.project-card').click();
+      expect(onEdit).to.have.been.calledWith(project);
     });
   });
 });
