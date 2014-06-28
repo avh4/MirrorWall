@@ -1,42 +1,26 @@
 "use strict";
 
-var ProjectsView = require('./ProjectsView');
 var AddProjectView = require('./AddProjectView');
-var ProjectService = require('./ProjectService');
 var mercury = require('mercury');
 var h = mercury.h;
 
-var MirrorWall = {};
+var ProjectsView = require('./ProjectsView');
 
-MirrorWall.state = function() {
-  var state = mercury.struct({
-    AddProjectView: AddProjectView.state(),
-    projects: mercury.value([]),
-    editors: mercury.varhash(),
-    onDeleteProject: mercury.value(mercury.input()),
-    onEdit: mercury.value(mercury.input())
-  });
+var events = require('./events');
 
-  ProjectService.subscribe(function(projects) {
-    state.projects.set(projects);
-  });
-
-  state.onDeleteProject()(function(project) {
-    project.deleteRecord();
-  });
-  
-  state.onEdit()(function(project) {
-    state.editors.put(project.getId(), {});
-  });
-
-  return state;
+module.exports = {
+  state: function() {
+    var ProjectStore = require('./stores/ProjectStore')(events);
+    var AddProjectFormStore = require('./stores/AddProjectFormStore')(events);
+    return mercury.struct({
+      projects: ProjectStore.projects,
+      addForm: AddProjectFormStore
+    });
+  },
+  render: function(state) {
+    return h('div', [
+      AddProjectView(state.addForm, events),
+      ProjectsView(state.projects, events)
+    ])
+  }
 }
-
-MirrorWall.render = function(state) {
-  return h('div', [
-    AddProjectView.render(state.AddProjectView),
-    ProjectsView.render(state.projects, state.onDeleteProject, state.onEdit, state.editors)
-  ]);
-};
-
-module.exports = MirrorWall;

@@ -28,7 +28,10 @@
     "webpack-dev-server": "^1.2.8"
   },
   "dependencies": {
+    "geval": "^2.1.1",
     "mercury": "git://github.com/Raynos/mercury#aedbe2",
+    "observ": "^0.2.0",
+    "observ-varhash": "^0.1.2",
     "q": "^1.0.1"
   }
 }
