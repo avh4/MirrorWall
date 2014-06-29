@@ -1,59 +1,49 @@
 require('./env');
 
-var ProjectCard = {
-  render: function(project) {
-    return '%Project:' + project.get('name');
-  }
-};
-
-var ProjectEditor = {
-  render: function(project) {
-    return '%ProjectEditor:' + project.get('name');
-  }
-};
-
-var ProjectsView = subject('../../main/js/ProjectsView', {
-  ProjectCard: ProjectCard,
-  ProjectEditor: ProjectEditor
-});
-
-function p(name) {
-  return {
-    getId: function() { return name },
-    get: sinon.stub().withArgs('name').returns(name)
-  };
-}
-
 describe('ProjectsView', function() {
-  var p1 = p('Project wall');
-  var p2 = p('Econ 101');
+  var p1 = { name: 'Project wall', id: 'ID_PW' };
+  var p2 = { name: 'Econ 101', id: 'ID_E1'};
+  var events = '__FAKE_EVENTS__';
   var $;
-  var editors;
+  var ProjectsView;
+  var ProjectCard;
+  var ProjectEditor;
   
   beforeEach(function() {
-    editors = {};
+    ProjectCard = MercuryTest.stub('ProjectCard');
+    ProjectEditor = MercuryTest.stub('ProjectEditor');
+
+    ProjectsView = subject('../../main/js/ProjectsView', {
+      ProjectCard: ProjectCard,
+      ProjectEditor: ProjectEditor
+    });
   });
   
   it('shows projects', function() {
-    var $ = new MercuryTest(ProjectsView.render, [p1], undefined, undefined, {});
-    expect($('div.row div').text()).to.equal('%Project:Project wall');
+    var $ = new MercuryTest(ProjectsView, [p1], {}, events);
+    expect(ProjectCard).to.have.been.calledWith(p1);
+    expect($('div.row div #ProjectCard0').text()).to.equal('%ProjectCard:0%');
   });
 
   it('shows all projects', function() {
-    var $ = new MercuryTest(ProjectsView.render, [p1, p2], undefined, undefined, {});
-    expect($('div.row div').first().text()).to.equal('%Project:Project wall');
-    expect($('div.row div').last().text()).to.equal('%Project:Econ 101');
+    var $ = new MercuryTest(ProjectsView, [p1, p2], {}, events);
+    expect(ProjectCard).to.have.been.calledWith(p1);
+    expect(ProjectCard).to.have.been.calledWith(p2);
+    expect($('div.row div').first().text()).to.equal('%ProjectCard:0%');
+    expect($('div.row div').last().text()).to.equal('%ProjectCard:1%');
   });
-  
+
   it('shows editors', function() {
-    editors[p1.getId()] = {};
-    var $ = new MercuryTest(ProjectsView.render, [p1, p2], undefined, undefined, editors);
-    expect($('div.row div').first().text()).to.equal('%ProjectEditor:Project wall');
+    var editors = {};
+    editors[p1.id] = '__EDITOR_STATE__';
+    var $ = new MercuryTest(ProjectsView, [p1, p2], editors, events);
+    expect($('div.row div').first().text()).to.equal('%ProjectEditor:0%');
+    expect(ProjectEditor).to.have.been.calledWith(p1.id, '__EDITOR_STATE__', events);
   });
 
   describe('with no data', function() {
     it('shows a message', function() {
-      var $ = new MercuryTest(ProjectsView.render, mercury.value());
+      var $ = new MercuryTest(ProjectsView, [], {}, events);
       expect($('div').first().text()).to.eql('No project data provided');
     });
   });

@@ -21,7 +21,7 @@ module.exports = function(events, ProjectStore) {
   events.commitProject(function(projectId) {
     var editor = editors.get(projectId);
     var entity = editor._entity;
-    entity.set('name', editor.name);
+    entity.update({name: editor.name});
     editors.delete(projectId);
   });
   return editors;

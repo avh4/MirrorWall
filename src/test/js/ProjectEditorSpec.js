@@ -1,39 +1,35 @@
 require('./env');
 var ProjectCard = subject('../../main/js/ProjectEditor');
 
-function p(name) {
-  return {
-    get: sinon.stub().withArgs('name').returns(name)
-  };
-}
-
 describe('ProjectEditor', function() {
   var $;
-  var onUpdate;
-  var project;
+  var projectId = 'PID';
+  var events;
 
   beforeEach(function() {
-    onUpdate = sinon.spy();
-    project = p('Project wall');
-    $ = new MercuryTest(ProjectCard.render, project, onUpdate);
+    events = {
+      commitProject: sinon.spy(),
+      editProjectName: sinon.spy(),
+      editProject: sinon.spy()
+    };
+    $ = new MercuryTest(ProjectCard, projectId, { name: 'Project wall' }, events);
   });
 
   it('shows the project name', function() {
-    expect($('input.name').val()).to.eql('Project wall');
+    expect($('input.name-input').val()).to.eql('Project wall');
   });
 
   describe('tapping done', function() {
-    it.only('updates the project name', function() {
-      $('.name').input('Amazing Race')
+    it('sends event', function() {
       $('.done').click();
-      expect(onUpdate).to.have.been.calledWith(project, 'Amazing Race');
+      expect(events.commitProject).to.have.been.calledWith(projectId);
     });
   });
-  //
-  // describe('tapping the card', function() {
-  //   it('switches to edit mode', function() {
-  //     $('.project-card').click();
-  //     expect(onEdit).to.have.been.calledWith(project);
-  //   });
-  // });
+
+  describe('editing the name', function() {
+    it('sends event', function() {
+      $('.name-input').input('Amazing Race')
+      expect(events.editProjectName).to.have.been.calledWith({projectId: projectId, name: 'Amazing Race'});
+    });
+  });
 });

@@ -1,5 +1,5 @@
-require('./env');
-var DropboxService = require('../../main/js/DropboxService');
+require('../env');
+var DropboxService = require('../../../main/js/dropbox/DropboxService');
 
 describe('DropboxService', function() {
   describe('insert', function() {

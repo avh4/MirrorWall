@@ -1,6 +1,7 @@
 'use strict';
 
 var mercury = require('mercury');
+var h = mercury.h;
 var event = require('synthetic-dom-events');
 var Document = require('min-document/document');
 var cheerio = require('cheerio');
@@ -41,7 +42,7 @@ function MercuryTest(/*...*/) {
   var document = new Document();
   var elem = document.createElement('div');
   document.body.appendChild(elem);
-  if (renderArgs.length == 1) {
+  if (renderArgs.length == 1 && typeof renderArgs[0] == 'function') {
     mercury.app(elem, renderArgs[0], render, {document: document});
   } else {
     var opts = {document: document};
@@ -53,6 +54,16 @@ function MercuryTest(/*...*/) {
     // observ(loop.update);
   }
   return $.bind(null, document, elem);
+}
+
+MercuryTest.stub = function(name) {
+  var stub = sinon.stub();
+  var i;
+  for (i = 0; i < 2; i++) {
+    stub.onCall(i).returns(h('div#' + name + i, '%' + name + ':' + i + '%'));
+  }
+  stub.onCall(i).throws('Too many calls to component ' + name);
+  return stub;
 }
 
 module.exports = MercuryTest;

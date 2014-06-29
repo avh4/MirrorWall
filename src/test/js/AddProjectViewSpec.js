@@ -1,31 +1,27 @@
 require('./env');
 
-var ProjectService = {
-  add: sinon.spy()
-};
-
-var AddProjectView = subject('../../main/js/AddProjectView', {
-  ProjectService: ProjectService
-});
+var AddProjectView = subject('../../main/js/AddProjectView');
 
 describe('AddProjectView', function() {
-  describe('tapping the add button', function() {
-    var $;
-    
-    beforeEach(function(done) {
-      $ = new MercuryTest(AddProjectView);
-      
+  var $;
+  var events;
+
+  beforeEach(function() {
+    events = { edit: sinon.spy(), commit: sinon.spy() };
+    $ = new MercuryTest(AddProjectView, {}, events);
+  });
+
+  describe('typing in the field', function() {
+    it('sends event', function() {
       $('.add-field').input('Amazing Race');
+      expect(events.edit).to.have.been.calledWith({name: 'Amazing Race'});
+    });
+  });
+
+  describe('tapping the add button', function() {
+    it('sends event', function() {
       $('.add-button').click();
-      setTimeout(done);
-    });
-    
-    it('adds the project', function() {
-      expect(ProjectService.add).to.have.been.calledWith('Amazing Race');
-    });
-    
-    it('clears the name input', function() {
-      expect($('input').val()).to.equal('');
+      expect(events.commit).to.have.been.called;
     });
   });
 });

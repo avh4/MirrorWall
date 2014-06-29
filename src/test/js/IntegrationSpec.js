@@ -26,7 +26,7 @@ describe('Integration test', function() {
     setTimeout(function() {setTimeout(function() {
       $('.project-card').click();
       setTimeout(function() {
-        $('.name').input('Econ 101');
+        $('.name-input').input('Econ 101');
         $('.done').click();
         Dropbox.triggerRecordsChanged();
         setTimeout(function() {setTimeout(function() {
