@@ -9,7 +9,7 @@ describe('ProjectCard', function() {
   beforeEach(function() {
     events = {
       editProject: sinon.spy(),
-      deleteProject: sinon.spy()
+      ProjectStore: { delete: sinon.spy() }
     };
     project = { id: 'FAKE_PROJECT_ID', name: 'Project wall' };
     $ = new MercuryTest(ProjectCard, project, events);
@@ -22,7 +22,7 @@ describe('ProjectCard', function() {
   describe('tapping delete', function() {
     it('deletes the project', function() {
       $('.delete').click();
-      expect(events.deleteProject).to.have.been.calledWith(project);
+      expect(events.ProjectStore.delete).to.have.been.calledWith(project);
     });
   });
 

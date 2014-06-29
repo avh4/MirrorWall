@@ -1,11 +1,13 @@
 var DropboxService = require('../dropbox/DropboxService');
 var value = require('observ');
+var input = require('geval/single');
 
 module.exports = function(events) {
   var projects = value([]);
   var projectIndex = {};
+  var events = { delete: input() };
 
-  events.deleteProject(function(project) {
+  events.delete(function(project) {
     project._entity.deleteRecord();
   });
 
@@ -23,6 +25,6 @@ module.exports = function(events) {
     }).done();
   });
 
-  return projects;
+  return { state: projects, events: events };
 }
 
