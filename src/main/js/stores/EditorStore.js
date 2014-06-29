@@ -1,17 +1,28 @@
+'use strict';
+
 var varhash = require('observ-varhash');
 
-module.exports = function(events) {
+module.exports = function(events, ProjectStore) {
   var editors = varhash();
-  events.editProjectName(function(projectId, name) {
-    editors.put(projectId, {name: name}); // XXX
+  function edit(projectId, field, value) {
+    var editor = editors.get(projectId);
+    editor[field] = value;
+    editors.put(projectId, editor);
+  }
+  events.editProject(function(project) {
+    editors.put(project.id, { id: project.id, name: project.name, _entity: project._entity });
   });
-  events.editProjectColor(fuction(projectId, color) {
-    // editors[projectId].color = color;
-    throw new Error('Not implemented');
+  events.editProjectName(function(data) {
+    edit(data.projectId, 'name', data.name);
+  });
+  events.editProjectColor(function(projectId, color) {
+    edit(projectId, 'color', color);
   });
   events.commitProject(function(projectId) {
-    console.log("COMMIT", editors.get(projectId);
+    var editor = editors.get(projectId);
+    var entity = editor._entity;
+    entity.set('name', editor.name);
     editors.delete(projectId);
   });
-  return { editors: editors };
+  return editors;
 };

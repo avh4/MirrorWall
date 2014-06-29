@@ -6,7 +6,7 @@ module.exports = function(project, events) {
   return h('div.project-card', {'ev-click': mercury.event(events.editProject, project)}, [
     h('span.name', name),
     h('button.delete', {
-      'ev-click': mercury.event(events.deleteProject, project.id)
+      'ev-click': mercury.event(events.deleteProject, project)
     },
       h('i.fa.fa-times'))
   ]);

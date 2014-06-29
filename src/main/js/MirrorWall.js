@@ -12,15 +12,17 @@ module.exports = {
   state: function() {
     var ProjectStore = require('./stores/ProjectStore')(events);
     var AddProjectFormStore = require('./stores/AddProjectFormStore')(events);
+    var EditorStore = require('./stores/EditorStore')(events, ProjectStore);
     return mercury.struct({
-      projects: ProjectStore.projects,
-      addForm: AddProjectFormStore
+      projects: ProjectStore,
+      addForm: AddProjectFormStore,
+      editors: EditorStore
     });
   },
   render: function(state) {
     return h('div', [
       AddProjectView(state.addForm, events),
-      ProjectsView(state.projects, events)
+      ProjectsView(state.projects, state.editors, events)
     ])
   }
 }

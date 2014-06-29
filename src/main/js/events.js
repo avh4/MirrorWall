@@ -1,7 +1,7 @@
 var input = require('geval/single');
 
 module.exports = {
-  editProject: input(), // project id
+  editProject: input(), // project
   editProjectName: input(), // project id, name
   editProjectColor: input(), // project id, color
   commitProject: input(), // project id
@@ -9,5 +9,5 @@ module.exports = {
   editAddFormName: input(), // {name}
 
   addProject: input(), // name
-  deleteProject: input(), // project id
+  deleteProject: input(), // project
 };
