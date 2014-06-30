@@ -8,17 +8,18 @@ var ProjectsView = require('./ProjectsView');
 
 module.exports = {
   state: function() {
-    var events = require('./events');
     var ProjectStore = require('./stores/ProjectStore')();
     var AddProjectFormStore = require('./stores/AddProjectFormStore')();
-    var EditorStore = require('./stores/EditorStore')(events, ProjectStore);
-    events.AddProjectFormStore = AddProjectFormStore.events;
-    events.ProjectStore = ProjectStore.events;
+    var EditorStore = require('./stores/EditorStore')(ProjectStore);
     return mercury.struct({
       projects: ProjectStore.state,
       addForm: AddProjectFormStore.state,
-      editors: EditorStore,
-      events: events
+      editors: EditorStore.state,
+      events: {
+        AddProjectFormStore: AddProjectFormStore.events,
+        ProjectStore: ProjectStore.events,
+        EditorStore: EditorStore.events
+      }
     });
   },
   render: function(state) {

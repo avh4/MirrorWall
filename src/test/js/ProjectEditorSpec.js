@@ -8,9 +8,10 @@ describe('ProjectEditor', function() {
 
   beforeEach(function() {
     events = {
-      commitProject: sinon.spy(),
-      editProjectName: sinon.spy(),
-      editProject: sinon.spy()
+      EditorStore: {
+        commit: sinon.spy(),
+        updateName: sinon.spy()
+      }
     };
     $ = new MercuryTest(ProjectCard, projectId, { name: 'Project wall' }, events);
   });
@@ -22,14 +23,14 @@ describe('ProjectEditor', function() {
   describe('tapping done', function() {
     it('sends event', function() {
       $('.done').click();
-      expect(events.commitProject).to.have.been.calledWith(projectId);
+      expect(events.EditorStore.commit).to.have.been.calledWith(projectId);
     });
   });
 
   describe('editing the name', function() {
     it('sends event', function() {
       $('.name-input').input('Amazing Race')
-      expect(events.editProjectName).to.have.been.calledWith({projectId: projectId, name: 'Amazing Race'});
+      expect(events.EditorStore.updateName).to.have.been.calledWith({projectId: projectId, name: 'Amazing Race'});
     });
   });
 });

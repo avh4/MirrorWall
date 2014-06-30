@@ -8,7 +8,7 @@ describe('ProjectCard', function() {
 
   beforeEach(function() {
     events = {
-      editProject: sinon.spy(),
+      EditorStore: { startEditing: sinon.spy() },
       ProjectStore: { delete: sinon.spy() }
     };
     project = { id: 'FAKE_PROJECT_ID', name: 'Project wall' };
@@ -29,7 +29,7 @@ describe('ProjectCard', function() {
   describe('tapping the card', function() {
     it('switches to edit mode', function() {
       $('.project-card').click();
-      expect(events.editProject).to.have.been.calledWith(project);
+      expect(events.EditorStore.startEditing).to.have.been.calledWith(project);
     });
   });
 });

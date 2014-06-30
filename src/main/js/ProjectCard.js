@@ -3,7 +3,7 @@ var h = mercury.h;
 
 module.exports = function(project, events) {
   var name = project.name;
-  return h('div.project-card', {'ev-click': mercury.event(events.editProject, project)}, [
+  return h('div.project-card', {'ev-click': mercury.event(events.EditorStore.startEditing, project)}, [
     h('span.name', name),
     h('button.delete', {
       'ev-click': mercury.event(events.ProjectStore.delete, project)
